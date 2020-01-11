@@ -16,8 +16,4 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-document.addEventListener('keyup', (event) => {
-  const key = event.key.toUpperCase()
-  fetch(`http://localhost:3000/keystroke?key=${key}`)
 
-})
