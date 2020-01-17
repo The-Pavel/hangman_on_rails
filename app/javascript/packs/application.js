@@ -17,3 +17,34 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 
+document.addEventListener('DOMContentLoaded', () => {
+
+
+  document.addEventListener('keyup', (e) => {
+    const key = e.key
+    if (key.toUpperCase() != "ENTER") {
+      document.querySelector('.key-pressed').innerText = key.toUpperCase()
+    }
+  })
+
+
+
+
+
+
+
+  // adding dashes for word letters
+  const word = document.querySelector('.word')
+  let length = Number.parseInt(word.dataset.num, 10)
+  word.innerHTML = "<h2 class='letter'>_</h2>".repeat(length)
+
+
+
+
+
+
+
+
+
+
+})

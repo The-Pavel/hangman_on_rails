@@ -1,3 +1,17 @@
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.container {
+  width: 60vw;
+  text-align: center !important;
+  margin: 0 auto;
+}
+
+.word {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.key-pressed {
+  font-size: 50px;
+}

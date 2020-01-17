@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  word: MyString
+  difficulty: 1
+  definitions: 
+  examples: 
+
+two:
+  word: MyString
+  difficulty: 1
+  definitions: 
+  examples: 
