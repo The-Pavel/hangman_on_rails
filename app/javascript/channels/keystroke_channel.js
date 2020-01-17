@@ -1,7 +1,6 @@
 import consumer from "./consumer"
 
 
-
 document.addEventListener('DOMContentLoaded', ()=>{
   // GRAB AN ELEMENT FROM FRONTEND to GET PARAMS FOR THE
   // SOCKET CONNECTION
@@ -10,11 +9,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   // If element found
   if (current_user_id) {
+
   consumer.subscriptions.create({channel: "KeystrokeChannel", channel_id: channel_id, user_id: current_user_id}, {
 
   connected() {
-
-    // Called when the subscription is ready for use on the server
+    console.log('connected')
+    let iden = JSON.stringify({channel: "KeystrokeChannel",channel_id: channel_id, user_id: current_user_id})
+    let dataToSend = JSON.stringify({ content: "You're on!", user_id: current_user_id})
+    consumer.send(
+      {identifier: iden,
+       command: "message",
+       action: "receive",
+       data: dataToSend}
+       )
+      // Called when the subscription is ready for use on the server
   },
 
   disconnected() {

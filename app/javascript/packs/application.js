@@ -2,6 +2,7 @@
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
+//= require cable
 
 require("@rails/ujs").start()
 require("turbolinks").start()
@@ -19,7 +20,7 @@ require("channels")
 
 document.addEventListener('DOMContentLoaded', () => {
 
-
+  // showing the key pressed to the user who pressed it
   document.addEventListener('keyup', (e) => {
     const key = e.key
     if (key.toUpperCase() != "ENTER") {
