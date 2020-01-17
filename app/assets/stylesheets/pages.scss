@@ -15,3 +15,14 @@
 .key-pressed {
   font-size: 50px;
 }
+
+.lives {
+  display: flex;
+  width: 30vw;
+  justify-content: flex-start;
+  margin: 0 auto;
+}
+
+.life {
+  margin-right: 4.5vw;
+}

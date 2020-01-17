@@ -4,24 +4,31 @@
   <h3 data-def-id="<%= @def_index %>"><%= @word.definitions[@def_index]%></h3>
   <div class="word" data-num="<%= @word.difficulty %>"></div>
   <div class="key-pressed"></div>
-  <h4>Press Enter when you selected your key!</h4>
-
+  <h4 class="notice">Press Enter when you selected your key!</h4>
+  <div class="lives">
+    <h4 class="life">❤️</h4>
+    <h4 class="life">❤️</h4>
+    <h4 class="life">❤️</h4>
+    <h4 class="life">❤️</h4>
+    <h4 class="life">❤️</h4>
+  </div>
 </div>
 <% #if @user_id == @channel_id %>
-  <script>
-    document.addEventListener('keyup', (event) => {
+<script>
+  document.addEventListener('keyup', (event) => {
     console.log('key pressed')
     const keyPress = event.key.toUpperCase()
-    if (keyPress == "ENTER") {
-      var word = <%= @word.id %>
-      var key = document.querySelector('.key-pressed').innerText
-      const user_id = document.querySelector('h1').dataset.userId
-      const channel_id = document.querySelector('[channel]').dataset.channelId
-      fetch(`http://localhost:3000/keystroke?key=${key}&user_id=${user_id}&channel_id=${channel_id}&word_id=${word}`)
+    let livesCount = document.querySelectorAll('.life').length
+    if (livesCount != 0) {
+      if (keyPress == "ENTER") {
+        var word = <%= @word.id %>
+        var key = document.querySelector('.key-pressed').innerText
+        const user_id = document.querySelector('h1').dataset.userId
+        const channel_id = document.querySelector('[channel]').dataset.channelId
+        fetch(`http://localhost:3000/keystroke?key=${key}&user_id=${user_id}&channel_id=${channel_id}&word_id=${word}`)
+      }
     }
-
-
   })
 
-  </script>
+</script>
 <% #end %>

@@ -31,12 +31,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
+    let notice = document.querySelector('.notice')
     console.log(data)
     let user_id = data.user_id
     let match = data.match
     let positions = data.pos
     let word = data.word
     if (match) {
+      notice.innerHTML = "<span style='color: green;'>Good one! ✅</span>"
+      setTimeout(() => {
+        notice.innerHTML = "Press Enter when you selected your key!"
+      }, 1000)
       // if the latest guess was a match update the guessing word and check if game over
       let underscores = document.querySelectorAll('.letter')
       positions.forEach((index) => {
@@ -66,9 +71,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
       // TODO
       // if the latest guess was incorrect
       // 1. show the player making the guess she/he is wrong
+      notice.innerHTML = "<span style='color: red;'>Nope! ❌</span>"
+
       // 2. reduce 1 life
+      let livesBox = document.querySelector('.lives')
+      let livesCount = document.querySelectorAll('.life').length
+      livesBox.innerHTML = "<h4 class='life'>❤️</h4>".repeat(livesCount - 1)
       // 3. check if all lives are lost
+      if (livesCount == 1) {
+        document.querySelector('.key-pressed').innerHTML = "<span style='color: red;'>Busted! ☠️</span>"
+        notice.innerHTML = ""
+      } else {
+        setTimeout(() => {
+        notice.innerHTML = "Press Enter when you selected your key!"
+      }, 1000)
+      }
       // 4. if so, disable the event listener for 'keyup' for that player
+      // logic implemented in home.html.erb script
     }
 
 

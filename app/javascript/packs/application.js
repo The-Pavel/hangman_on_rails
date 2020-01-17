@@ -23,9 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // showing the key pressed to the user who pressed it
   document.addEventListener('keyup', (e) => {
     const key = e.key
-    if (key.toUpperCase() != "ENTER") {
+    let livesCount = document.querySelectorAll('.life').length
+    if (livesCount != 0) {
+      if (key.toUpperCase() != "ENTER") {
       document.querySelector('.key-pressed').innerText = key.toUpperCase()
+      }
     }
+
   })
 
 
