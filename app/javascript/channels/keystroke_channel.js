@@ -10,22 +10,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // If element found
   if (current_user_id) {
 
-  consumer.subscriptions.create({channel: "KeystrokeChannel", channel_id: channel_id, user_id: current_user_id}, {
+    consumer.subscriptions.create({channel: "KeystrokeChannel", channel_id: channel_id, user_id: current_user_id}, {
 
-  connected() {
-    console.log('connected')
-    let iden = JSON.stringify({channel: "KeystrokeChannel",channel_id: channel_id, user_id: current_user_id})
-    let dataToSend = JSON.stringify({ content: "You're on!", user_id: current_user_id})
-    consumer.send(
-      {identifier: iden,
-       command: "message",
-       action: "receive",
-       data: dataToSend}
-       )
+      connected() {
+        console.log('connected')
+        let iden = JSON.stringify({channel: "KeystrokeChannel",channel_id: channel_id, user_id: current_user_id})
+        let dataToSend = JSON.stringify({ content: "You're on!", user_id: current_user_id})
+        consumer.send(
+          {identifier: iden,
+           command: "message",
+           action: "receive",
+           data: dataToSend}
+           )
       // Called when the subscription is ready for use on the server
-  },
+    },
 
-  disconnected() {
+    disconnected() {
     // Called when the subscription has been terminated by the server
   },
 
@@ -38,10 +38,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let positions = data.pos
     let word = data.word
     if (match) {
-      notice.innerHTML = "<span style='color: green;'>Good one! ✅</span>"
-      setTimeout(() => {
-        notice.innerHTML = "Press Enter when you selected your key!"
-      }, 1000)
+      // did this user guess the letter?
       // if the latest guess was a match update the guessing word and check if game over
       let underscores = document.querySelectorAll('.letter')
       positions.forEach((index) => {
@@ -66,42 +63,40 @@ document.addEventListener('DOMContentLoaded', ()=>{
           h4.innerHTML = "<span style='color: red;'>You lost 😭!</span>"
         }
 
+      } else if (!currentLetters.every(letterIsFilled) && user_id == current_user_id) {
+        notice.innerHTML = "<span style='color: green;'>Good one! ✅</span>"
+        setTimeout(() => {
+          notice.innerHTML = "Press Enter when you selected your key!"
+        }, 1000)
       }
     } else {
       // TODO
       // if the latest guess was incorrect
       // 1. show the player making the guess she/he is wrong
-      notice.innerHTML = "<span style='color: red;'>Nope! ❌</span>"
-
-      // 2. reduce 1 life
-      let livesBox = document.querySelector('.lives')
-      let livesCount = document.querySelectorAll('.life').length
-      livesBox.innerHTML = "<h4 class='life'>❤️</h4>".repeat(livesCount - 1)
+      if (user_id == current_user_id) {
+        notice.innerHTML = "<span style='color: red;'>Nope! ❌</span>"
+        let livesBox = document.querySelector('.lives')
+        let livesCount = document.querySelectorAll('.life').length
+        livesBox.innerHTML = "<h4 class='life'>❤️</h4>".repeat(livesCount - 1)
       // 3. check if all lives are lost
       if (livesCount == 1) {
         document.querySelector('.key-pressed').innerHTML = "<span style='color: red;'>Busted! ☠️</span>"
         notice.innerHTML = ""
       } else {
         setTimeout(() => {
-        notice.innerHTML = "Press Enter when you selected your key!"
-      }, 1000)
+          notice.innerHTML = "Press Enter when you selected your key!"
+        }, 1000)
       }
+    }
+
+      // 2. reduce 1 life
+
       // 4. if so, disable the event listener for 'keyup' for that player
       // logic implemented in home.html.erb script
     }
 
+  }
 
-      // adding a div with the key that another person pressed
-      // const key = data.key
-      // const user = data.user_id
-      // const div = document.createElement('div')
-      // div.style.width = "500px"
-      // div.style.textAlign = "center"
-      // div.innerText = key
-      // document.body.appendChild(div)
-
-    }
-
-  })
+})
   }
 });
