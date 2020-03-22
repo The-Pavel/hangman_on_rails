@@ -1,16 +1,16 @@
 <div class="container">
-  <h1 data-user-id="<%= @user_id %>">Let's hang some folks</h1>
+  <h1 data-user-id="<%= @user_id %>">Hangman on Rails</h1>
   <p hidden channel data-channel-id="<%= @channel_id %>"></p>
-  <h3 data-def-id="<%= @def_index %>"><%= @word.definitions[@def_index]%></h3>
+  <h3 class="definition" data-def-id="<%= @def_index %>"><%= @word.definitions[@def_index]%></h3>
   <div class="word" data-num="<%= @word.difficulty %>"></div>
   <div class="key-pressed"></div>
   <h4 class="notice">Press Enter when you selected your key!</h4>
   <div class="lives">
-    <h4 class="life">❤️</h4>
-    <h4 class="life">❤️</h4>
-    <h4 class="life">❤️</h4>
-    <h4 class="life">❤️</h4>
-    <h4 class="life">❤️</h4>
+    <h4 class="life"><%= image_tag("full-heart.png", size: "30") %></h4>
+    <h4 class="life"><%= image_tag("full-heart.png", size: "30") %></h4>
+    <h4 class="life"><%= image_tag("full-heart.png", size: "30") %></h4>
+    <h4 class="life"><%= image_tag("full-heart.png", size: "30") %></h4>
+    <h4 class="life"><%= image_tag("full-heart.png", size: "30") %></h4>
   </div>
 </div>
 <div class="opponents">
@@ -34,4 +34,5 @@
   })
 
 </script>
+<div class='icon-credit'>Heart icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 <% #end %>

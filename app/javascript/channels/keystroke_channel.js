@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // SOCKET CONNECTION
   const current_user_id = document.querySelector('h1').dataset.userId
   const channel_id = document.querySelector('[channel]').dataset.channelId
+  const current_players = []
 
   // If element found
   if (current_user_id) {
@@ -30,8 +31,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
   },
 
   received(data) {
+    // if joining a new game
+    if (data.new_game) {
+      data.players.forEach(p => {
+        if (p != current_user_id && !current_players.includes(p)) {
+          current_players.push(data.player_id)
+          let newPlayer = document.createElement('div')
+          newPlayer.setAttribute('id', `player${data.player_id}`)
+          newPlayer.innerHTML = `
+          <h3>😈</h3><br>
+          <strong>Player ${p}</strong>
+          `
+          document.querySelector('.opponents').appendChild(newPlayer)
+        }
+      })
+    }
+
     // adding a new opponent to your board
-    if (data.new_player && data.player_id != current_user_id) {
+    if (data.new_player && data.player_id != current_user_id && !current_players.includes(data.player_id)) {
+      current_players.push(data.player_id)
       let newPlayer = document.createElement('div')
       newPlayer.setAttribute('id', `player${data.player_id}`)
       newPlayer.innerHTML = `
@@ -85,7 +103,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
         notice.innerHTML = "<span style='color: red;'>Nope! ❌</span>"
         let livesBox = document.querySelector('.lives')
         let livesCount = document.querySelectorAll('.life').length
-        livesBox.innerHTML = "<h4 class='life'>❤️</h4>".repeat(livesCount - 1)
+        livesBox.innerHTML = "<h4 class='life'><image width=30 height= 30 src='/assets/full-heart.png'/></h4>".repeat(livesCount - 1)
+        livesBox.insertAdjacentHTML('beforeend', "<h4 class='empty-life'><image width=30 height= 30 src='/assets/empty-heart.png'/></h4>".repeat(6 - livesCount))
       // 3. check if all lives are lost
       if (livesCount == 1) {
         document.querySelector('.key-pressed').innerHTML = "<span style='color: red;'>Busted! ☠️</span>"

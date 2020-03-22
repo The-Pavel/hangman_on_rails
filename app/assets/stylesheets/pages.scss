@@ -1,6 +1,8 @@
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import url('https://fonts.googleapis.com/css?family=Prompt&display=swap');
+
 .container {
   width: 60vw;
   text-align: center !important;
@@ -10,19 +12,63 @@
 .word {
   display: flex;
   justify-content: space-evenly;
+  color: white;
+  font-size: 35px;
+  font-family: "Prompt";
 }
 
 .key-pressed {
-  font-size: 50px;
+  font-size: 75px;
+  font-family: "Prompt";
+  color: #305252;
+}
+
+.life {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.notice {
+  color: #305252;
+  font-family: "Prompt";
 }
 
 .lives {
   display: flex;
-  width: 30vw;
+  flex-direction: column;
+  width: 10vw;
   justify-content: flex-start;
   margin: 0 auto;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  top: 0;
 }
 
-.life {
-  margin-right: 4.5vw;
+body {
+  background-color: #5EF38C;
+}
+
+h1 {
+  font-size: 30px;
+  color: white;
+  font-family: "Prompt";
+}
+
+.definition {
+  background-color: #A3F7B5;
+  padding: 30px 35px;
+  font-family: "Prompt";
+  margin-top: 50px;
+  color: #305252;
+}
+
+.icon-credit {
+  position: fixed;
+  font-size: 10px;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
 }
