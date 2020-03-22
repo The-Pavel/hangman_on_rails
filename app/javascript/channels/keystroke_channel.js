@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       connected() {
         console.log('connected')
         let iden = JSON.stringify({channel: "KeystrokeChannel",channel_id: channel_id, user_id: current_user_id})
-        let dataToSend = JSON.stringify({ content: "You're on!", user_id: current_user_id})
+        let dataToSend = JSON.stringify({ content: "You're on!", user_id: current_user_id, channel_id: channel_id})
         consumer.send(
           {identifier: iden,
            command: "message",
@@ -30,6 +30,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
   },
 
   received(data) {
+    // adding a new opponent to your board
+    if (data.new_player && data.player_id != current_user_id) {
+      let newPlayer = document.createElement('div')
+      newPlayer.setAttribute('id', `player${data.player_id}`)
+      newPlayer.innerHTML = `
+      <h3>😈</h3><br>
+      <strong>Player ${data.player_id}</strong>
+      `
+      document.querySelector('.opponents').appendChild(newPlayer)
+    }
     // Called when there's incoming data on the websocket for this channel
     let notice = document.querySelector('.notice')
     console.log(data)
@@ -70,9 +80,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         }, 1000)
       }
     } else {
-      // TODO
-      // if the latest guess was incorrect
-      // 1. show the player making the guess she/he is wrong
+
       if (user_id == current_user_id) {
         notice.innerHTML = "<span style='color: red;'>Nope! ❌</span>"
         let livesBox = document.querySelector('.lives')
@@ -89,10 +97,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
       }
     }
 
-      // 2. reduce 1 life
-
-      // 4. if so, disable the event listener for 'keyup' for that player
-      // logic implemented in home.html.erb script
     }
 
   }
